@@ -20,15 +20,36 @@ setInterval(() => {
 
 
 // LOCATION
-if ( navigator.geolocation ) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-        getAddress(pos);
-    }, (err) => {
-        console.error(err);
-    });
+
+function initialize() {
+    if ( navigator.geolocation ) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            getAddress(pos);
+        }, (err) => {
+            console.error(err);
+        });
+    }
 }
 
 function getAddress(pos) {
-    console.log(pos)
+    const geocoder = new google.maps.Geocoder();
+    const latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    console.log(pos.coords);
+    geocoder.geocode({ location: latlng }, (results, status) => {
+        if ( status === "OK" ) {
+            displayLocation(results[results.length-2].formatted_address);
+        }
+    })
 }
 
+function displayLocation(location) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const today  = new Date();
+    const date = today.toLocaleDateString("en-US", options);
+    const markup = 
+    `<i class="fas fa-map-marker-alt"></i>
+    <div class="location">${location}</div>
+    <div class="time">${date}</div>`;
+    const el = document.getElementById("loc-info");
+    el.insertAdjacentHTML("afterbegin", markup);
+}

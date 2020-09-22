@@ -6,7 +6,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/weather-favicon.webp"/>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&family=Montserrat:wght@100;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css"/>
-    <script src="https://kit.fontawesome.com/9e70dce2af.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/fontawesome-free-5.14.0-web/css/all.css"/>
+    <!-- <script src="https://kit.fontawesome.com/9e70dce2af.js" crossorigin="anonymous"></script> -->
     <title>Weather</title>
 </head>
 <body>
@@ -32,14 +33,13 @@
                 </div>
             </div>
             <div class="wallpaper-panel">
-                <div class="location-info">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div class="location">Bokaro, India</div>
-                    <div class="time">12:35 AM</div>
+                <div class="location-info" id = "loc-info">
+                   
                 </div>
             </div>
         </div>
     </div>
 </body>
 <script src="js/script.js"></script>
+<script src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC-KWQmA4ees8n5IGi2Mgp4fkhHglBo4&sensor=true&callback=initialize"></script>
 </html>
