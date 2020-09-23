@@ -33,7 +33,8 @@ body {
 
 .temperature-panel {
     flex: 0 0 25%;
-    background: url(../images/widget-bg.jpg);
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);    
     position: relative;
 }
 
@@ -197,29 +198,52 @@ body {
         width: 90vw;
     }
     .temperature-panel {
-        flex: 0 0 35%;
-        background: url(../images/grad-phone.jpg) !important;
-        background-size: cover;
-        background-repeat: no-repeat;
+        flex: 0 0 45%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
     }
     .clock {
         width: 9rem;
         height: 9rem;
-        top: -50%;
-        transform: translate(-50%,50%);
+        top: 0;
+        transform: translate(-50%,-50%);
     }
     .current-temp-wrapper {
         display: flex;
         justify-content: space-evenly;
+        background-color: rgba(0,0,0,0.2);
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px;
+        border-radius: 100px;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+        bottom: auto;
     }
     .temp-icon {
-        margin-top: 8px;
-        font-size: 6rem;
+        margin-top: 4px;
+        font-size: 5rem;
+    }
+    .phone-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-left: -2rem;
+        justify-content: center;
+        margin-top: -10px;
+        text-transform: capitalize;
     }
     .current-temp {
-        font-size: 3.6rem;
+        font-size: 2rem;
     }
     .current-desc {
         margin-top: 0;
+        width: 70%;
+        margin: 0 auto;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 100px;
+        margin-top: 2px;
     }
 }
