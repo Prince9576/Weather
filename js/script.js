@@ -1,3 +1,4 @@
+
 // CLOCK
 (function() { 
 const hr = document.getElementById("hr");
@@ -20,7 +21,6 @@ setInterval(() => {
 
 
 // LOCATION
-
 function initialize() {
     if ( navigator.geolocation ) {
         navigator.geolocation.getCurrentPosition((pos) => {
@@ -52,4 +52,21 @@ function displayLocation(location) {
     <div class="time">${date}</div>`;
     const el = document.getElementById("loc-info");
     el.insertAdjacentHTML("afterbegin", markup);
+}
+
+
+// Digital Clock
+const clockEl = document.getElementById("clock");
+const digiEl = document.getElementById("digital");
+clockEl.addEventListener("mouseenter", showDigitalClock);
+clockEl.addEventListener("mouseleave", hideDigitalClock);
+
+function showDigitalClock() {
+    digiEl.style.cursor = "pointer";
+    digiEl.style.transform = "perspective(500px) translateZ(0) translate(-50%, -50%) scale(1)"
+}
+
+function hideDigitalClock(e) {
+    digiEl.style.cursor = "auto";
+    digiEl.style.transform = "perspective(500px) translateZ(0) translate(-50%, -50%) scale(0)";
 }
