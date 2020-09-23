@@ -187,3 +187,39 @@ body {
     background-color: red;
     border-radius: 10px;
 }
+
+@media screen and (max-width: 640px) {
+    .main-panel {
+        flex-direction: column-reverse;
+    }
+    .wrapper-inner {
+        height: 95vh;
+        width: 90vw;
+    }
+    .temperature-panel {
+        flex: 0 0 35%;
+        background: url(../images/grad-phone.jpg) !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .clock {
+        width: 9rem;
+        height: 9rem;
+        top: -50%;
+        transform: translate(-50%,50%);
+    }
+    .current-temp-wrapper {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .temp-icon {
+        margin-top: 8px;
+        font-size: 6rem;
+    }
+    .current-temp {
+        font-size: 3.6rem;
+    }
+    .current-desc {
+        margin-top: 0;
+    }
+}
