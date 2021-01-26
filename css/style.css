@@ -47,7 +47,7 @@ body {
 
 .wallpaper-panel {
     flex: 0 0 75%;
-    background: url(../images/evening.jpg);
+    background: url(../images/night.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -280,8 +280,9 @@ body {
         flex-direction: column-reverse;
     }
     .wrapper-inner {
-        height: 95vh;
+        height: 93vh;
         width: 90vw;
+        margin-top: 2rem;
     }
     .temperature-panel {
         flex: 0 0 45%;
