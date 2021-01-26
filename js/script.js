@@ -36,9 +36,25 @@ function getAddress(pos) {
     const latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     console.log(pos.coords);
     geocoder.geocode({ location: latlng }, (results, status) => {
+        console.log("Results", results);
         if ( status === "OK" ) {
-            displayLocation(results[results.length-2].formatted_address);
-            getLocation(pos, results[results.length-2].formatted_address);
+            const addressComponent = results[0].address_components;
+            let city, state, country;
+            addressComponent.forEach(component => {
+                if (component.types[0] === "locality") {
+                    city = component.long_name;
+                }
+                if (component.types[0] === "administrative_area_level_1") {
+                    state = component.long_name;
+                }
+                if (component.types[0] === "country") {
+                    country = component.long_name;
+                }
+            });
+            const address = `${city}, ${state}, ${country}`;
+            displayLocation(address);
+            setTimeout(getWeatherData, 1000, pos);
+            // getWeatherData(pos);
         }
     })
 }
@@ -55,9 +71,8 @@ function displayLocation(location) {
     el.insertAdjacentHTML("afterbegin", markup);
 }
 
-function getLocation(pos, address) {
-    const a = address.split(",");
-    fetch(`https://community-open-weather-map.p.rapidapi.com/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&q=${a[0]}`, {
+function getWeatherData(pos) {
+    fetch(`https://community-open-weather-map.p.rapidapi.com/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
@@ -68,6 +83,40 @@ function getLocation(pos, address) {
         return res.json();
     })
     .then((response) => {
+        console.log("Response", response);
+        const markup = `
+            <div class="row-1">
+                <img class="temp-icon" id="temperature-icon">
+                <div id="temperature"></div>
+            </div>
+            <div class="row-2">
+
+                <div class="info" id="humidity">
+                    <i class="fas fa-tint"></i>
+                    <div class="heading">Humidity : </div>
+                    <div class="text"></div>
+                </div>
+
+                <div class="info" id="pressure">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div class="heading">Pressure : </div>
+                    <div class="text"></div>
+                </div>
+
+                <div class="info" id="wind">
+                    <i class="fas fa-wind"></i>
+                    <div class="heading">Wind : </div>
+                    <div class="text"></div>
+                </div>
+                <div class="info" id="visibility">
+                    <i class="fas fa-eye"></i>
+                    <div class="heading">Visibility : </div>
+                    <div class="text"></div>
+                </div>
+            </div>
+        `
+        const current_temp_wrapper = document.querySelector(".current-temp-wrapper");
+        current_temp_wrapper.innerHTML = markup;
         displayTemp(response);
     })
     .catch(err => {
@@ -76,11 +125,36 @@ function getLocation(pos, address) {
 }
 
 function displayTemp(response) {
-    const tempEl = document.getElementById("temperature");
-    const tempDes = document.getElementById("desc");
-    const markup = `<span style="font-family: sans-serif;">${Math.round(response.main.temp - 273.15)}&deg;</span>C`;
-    tempEl.innerHTML =  markup;
-    tempDes.innerText = response.weather[0].description;
+    const IMAGE_BASE = "http://openweathermap.org/img/wn/";
+    const img = document.getElementById("temperature-icon");
+    img.setAttribute("src", IMAGE_BASE + response.weather[0].icon + "@2x.png");
+    const temperature = Math.round(response.main.temp - 273.15) + "&#176" + "C";
+    const humidity = response.main.humidity + "%";
+    const pressure = response.main.pressure + " hpa";
+    const wind = Math.floor(response.wind.speed)+ " m/s";
+    const visibility = formatUnit(response.visibility) + " metres";
+
+    const temperature_el = document.getElementById("temperature");
+    const humidity_el = document.querySelector("#humidity .text");
+    const pressure_el = document.querySelector("#pressure .text");
+    const wind_el = document.querySelector("#wind .text");
+    const visibility_el = document.querySelector("#visibility .text");
+
+    temperature_el.innerHTML = temperature;
+    humidity_el.innerText = humidity;
+    pressure_el.innerText = pressure;
+    wind_el.innerText = wind;
+    visibility_el.innerText = visibility;
+}
+
+function formatUnit(str) {
+    str = str+"";
+    if (str.length <= 3) {
+        return str;
+    } else {
+        const st = str.length - 3;
+        return str.substring(0, st) + "," + str.substring(st);
+    }
 }
 
 
