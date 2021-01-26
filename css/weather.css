@@ -1,0 +1,126 @@
+.temperature-panel {
+    flex: 0 0 25%;
+    background-color: #0093E9;
+    /* background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);     */
+    background: url(../images/widget-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.current-temp-wrapper {
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    text-align: center;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    background-color: white;
+    padding-bottom: 25px;
+    box-shadow: inset 0px 0px 16px 2px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 10px;
+    min-height: 230px;
+    position: relative;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader img {
+    height: 4rem;
+}
+
+.loader div {
+    font-size: 14px;
+    color: #888888;
+}
+
+.row-1 {
+    display: flex;
+    align-items: center;
+    margin-top: -12px;
+}
+
+.row-1 div {
+    font-size: 2.5rem;
+    font-family: 'Montserrat';
+    margin-left: -10px;
+    color: #787878;
+    margin-top: -5px;
+}
+
+.row-2 {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: -16px;
+}
+
+.row-2 .info {
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    padding: 7px;
+    margin: 7px 0;
+}
+
+.row-2 .info > :not(:first-child) {
+    font-size: 13px;
+}
+
+.row-2 .heading {
+    font-weight: 800;
+}
+
+.row-2 .text {
+    margin-left: 4px;
+}
+
+#humidity {
+    background-color: dodgerblue;
+}
+#pressure {
+    background-color: red;
+}
+#wind {
+    background-color: mediumpurple;
+}
+#visibility {
+    background-color: yellowgreen;
+}
+
+.row-2 .info i {
+    flex: 0 0 15%;
+}
+
+
+.current-temp {
+    font-size: 4.6rem;
+}
+
+.temp-icon {
+    font-size: 8rem;
+    margin-bottom: 8px;
+}
+
+
+@media screen and (max-width: 640px) {
+    .temperature-panel {
+        flex: 0 0 45%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .current-temp-wrapper {
+        margin-bottom: 2rem;
+        margin-top: -3rem;
+    }
+}

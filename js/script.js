@@ -22,13 +22,28 @@ setInterval(() => {
 
 // LOCATION
 function initialize() {
-    if ( navigator.geolocation ) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            getAddress(pos);
-        }, (err) => {
-            console.error(err);
-        });
+    const current_temp_wrapper = document.querySelector(".current-temp-wrapper");
+    if ( navigator.onLine ) {
+        if ( navigator.geolocation ) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                getAddress(pos);
+            }, (err) => {
+                current_temp_wrapper.innerHTML = getErrorMarkup("not-found.png", err.message)
+                console.error(err);
+            });
+        }
+    } else {
+        current_temp_wrapper.innerHTML = getErrorMarkup("dino.jpg", "No Internet Connection");
     }
+}
+
+function getErrorMarkup(image, message) {
+    return `
+    <img src = '../images/${image}' style= 'height: 175px; margin-top: 1rem;'>
+    <div style= 'text-align: center; margin-top: 10px; color: #888888;'>
+       ${message}
+    </div>
+    `
 }
 
 function getAddress(pos) {
@@ -53,8 +68,7 @@ function getAddress(pos) {
             });
             const address = `${city}, ${state}, ${country}`;
             displayLocation(address);
-            setTimeout(getWeatherData, 1000, pos);
-            // getWeatherData(pos);
+            setTimeout(getWeatherData, 500, pos);
         }
     })
 }
